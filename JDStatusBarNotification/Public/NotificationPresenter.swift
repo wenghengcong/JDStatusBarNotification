@@ -182,6 +182,11 @@ public class NotificationPresenter: NSObject, NotificationWindowDelegate {
                                completion: Completion? = nil) -> UIView
   {
     let controller = UIHostingController(rootView: viewBuilder())
+    if #available(iOS 16.4, *) {
+        controller.safeAreaRegions = []
+    } else {
+        // Fallback on earlier versions
+    }
     controller.view.backgroundColor = .clear
     return presentCustomView(controller.view,
                              sizingController: HostingControllerSizingController(for: controller),
